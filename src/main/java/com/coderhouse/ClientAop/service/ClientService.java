@@ -26,11 +26,14 @@ public class ClientService {
     }
 
     @CustomMethodAnnotation
-    public void updateClient(Client client) throws MissedFieldsException {
+    public boolean updateClient(Client client) throws MissedFieldsException {
         if(client.getName() == "" || client.getLastname() == "" || client.getName() == null || client.getLastname() == null ){
-            throw new MissedFieldsException("Missing fields");
+            return false;
+        }  else {
+            logger.debug("Client updated");
+            return true;
         }
-        logger.debug("Client updated");
+
     }
 
     @CustomMethodAnnotation

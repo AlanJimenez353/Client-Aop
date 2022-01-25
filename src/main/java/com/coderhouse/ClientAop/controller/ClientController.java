@@ -27,7 +27,6 @@ public class ClientController {
     @GetMapping
     public List<Client> getProductList() throws ClientSearchError {
         logger.info("Peticion GET");
-
         if(clientList.isEmpty()){
             throw new ClientSearchError("No hay Clientes cargados");
         }
@@ -63,13 +62,15 @@ public class ClientController {
     @PutMapping("/{id}")
     public String updateClient(@RequestBody Client client, @PathVariable Integer id ) throws MissedFieldsException {
         logger.info("Peticion PUT");
-        if(client.getName() == "" || client.getLastname() == "" || client.getName() == null || client.getLastname() == null ){
+        boolean conf=clientService.updateClient(client);
+
+        if(conf=false){
             throw new MissedFieldsException("Missed fields");
         }
         else{
-        this.clientList.set(id, client);
+            this.clientList.set(id, client);
+            return"Se Modifico el Cliente id: "+id+"   Los datos ahora son los siguientes : "+client.getName()+"   "+client.getLastname();
             }
-        return"Se Modifico el Cliente id: "+id+"   Los datos ahora son los siguientes : "+client.getName()+"   "+client.getLastname();
     }
 
     @DeleteMapping(path = "/{id}")
