@@ -15,7 +15,7 @@ public class AspectAfterClient {
 
     Logger logger = LogManager.getLogger(AspectAfterClient.class);
 
-    @Pointcut("@annotation(com.coderhouse.ClientAop.annotations.LogAfter)")
+    @Pointcut("@annotation(com.coderhouse.ClientAop.annotations.CustomMethodAnnotation)")
     public void allControllersWithCustomAnnotation() {
     }
 

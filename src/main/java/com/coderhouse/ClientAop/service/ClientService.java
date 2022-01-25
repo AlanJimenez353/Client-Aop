@@ -1,7 +1,7 @@
 package com.coderhouse.ClientAop.service;
 
 
-import com.coderhouse.ClientAop.annotations.LogAfter;
+import com.coderhouse.ClientAop.annotations.CustomMethodAnnotation;
 import com.coderhouse.ClientAop.exceptions.MissedFieldsException;
 import com.coderhouse.ClientAop.model.Client;
 import org.apache.logging.log4j.LogManager;
@@ -21,21 +21,21 @@ public class ClientService {
         logger.debug("Created client");
     }
 
-    @LogAfter
-    public void updateClient(Client client) throws MissedFieldsException {
-        if(client.getName() == "" || client.getLastname() == "" || client.getName() == null || client.getLastname() == null ){
-            throw new MissedFieldsException("Missed fields");
-        }
-        logger.debug("Updated client info");
-    }
-
     public void getClientById() {
         logger.debug("Client with given id");
     }
 
-    @LogAfter
+    @CustomMethodAnnotation
+    public void updateClient(Client client) throws MissedFieldsException {
+        if(client.getName() == "" || client.getLastname() == "" || client.getName() == null || client.getLastname() == null ){
+            throw new MissedFieldsException("Missing fields");
+        }
+        logger.debug("Client updated");
+    }
+
+    @CustomMethodAnnotation
     public void deleteClient() {
-        logger.debug("Deleted client id");
+        logger.debug("Delete");
     }
 
 }
